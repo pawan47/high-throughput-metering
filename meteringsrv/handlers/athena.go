@@ -59,8 +59,8 @@ func formStatsQuery(custID string, timestampEpochGt int64, timestampEpochLs int6
 	if timestampEpochGt > 0 {
 		args = append(args, fmt.Sprintf("t1.meter_time_epoch >= %d", timestampEpochGt))
 	}
-	if timestampEpochLs < 0 {
-		args = append(args, fmt.Sprintf("t1.meter_time_epoch <= %d", timestampEpochGt))
+	if timestampEpochLs > 0 {
+		args = append(args, fmt.Sprintf("t1.meter_time_epoch <= %d", timestampEpochLs))
 	}
 	if len(args) != 0 {
 		qStr = fmt.Sprintf("%s WHERE %s", qStr, strings.Join(args, " AND "))

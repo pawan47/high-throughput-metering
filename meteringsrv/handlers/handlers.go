@@ -22,6 +22,8 @@ func (h *Handlers) Meter(w http.ResponseWriter, r *http.Request) {
 	ctx := context.Background()
 	var zerr *zerror.ZError
 
+	// as errors are also in json format
+	w.Header().Set("content-Type", "application/json")
 	// Based on method call respective functions
 	switch r.Method {
 	case http.MethodGet:
@@ -74,12 +76,12 @@ func (a *AddConsumptionParams) marshall() ([]byte, *zerror.ZError) {
 // AddConsumption Puts meter data into firehouse.
 func (h *Handlers) AddConsumption(ctx context.Context, w http.ResponseWriter,
 	r *http.Request) *zerror.ZError {
-	log.Printf("Add AddConsumption triggered with request body %+v", r.Body)
 	params := new(AddConsumptionParams)
 	err := json.NewDecoder(r.Body).Decode(&params)
 	if err != nil {
 		return zerror.NewZErr(zerror.HTTP_DECODE_ERR, err.Error())
 	}
+	log.Printf("Add AddConsumption triggered with request body %+v", params)
 
 	// Put data into data stream(firehose)
 	zerr := h.PutDataToDataStream(ctx, params)
@@ -119,7 +121,8 @@ func (h *Handlers) GetBillingStats(ctx context.Context, w http.ResponseWriter,
 	}
 
 	// Get stats using athena given query parameter
-	totalBytesConsumed, zerr := h.GetTotalBytesFromAthena(ctx, custID, timestampEpochGt, timestampEpochLs)
+	totalBytesConsumed, zerr := h.GetTotalBytesFromAthena(ctx, custID, timestampEpochGt,
+		timestampEpochLs)
 	if zerr != nil {
 		return zerr
 	}
@@ -130,7 +133,6 @@ func (h *Handlers) GetBillingStats(ctx context.Context, w http.ResponseWriter,
 	}
 
 	// write data into json format and return
-	w.Header().Set("content-Type", "application/json")
 	w.Write(marshalledRes)
 	w.WriteHeader(http.StatusOK)
 	return nil

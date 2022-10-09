@@ -6,3 +6,4 @@ package zenskar_project
 // 2. Add channel to put data into firehose
 // 3. enhance error library
 // 4. Refactor athena lib.
+// 5. Proper logging framework for debugging purposes
