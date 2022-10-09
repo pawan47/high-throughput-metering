@@ -33,3 +33,6 @@ Body:
 ### NOTE:
 - Please ask for creds for testing purpose, creds are wrong in repo
 - Please use postman collection for testing purposes
+
+## License
+[MIT](https://choosealicense.com/licenses/mit/)
