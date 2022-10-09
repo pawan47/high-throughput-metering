@@ -23,7 +23,7 @@ func main() {
 	awscfg := &aws.Config{
 		Region: aws.String("ap-south-1"),
 		Credentials: credentials.NewStaticCredentials("AKIA2NOKCR77SR6AFNWL",
-			"eRPNZ4N5qmMRCBn0oDiYlNZtH/Zd/ibE6c0rsPEs", ""),
+			"eRPNZ4N5MRCBn0oDiYlNZtH/Zd/ibE6c0rsPEs", ""),
 	}
 
 	dep.AWSAthena = athena.InitAthena(awscfg)

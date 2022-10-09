@@ -49,6 +49,7 @@ func (h *Handlers) GetTotalBytesFromAthena(ctx context.Context, custID string,
 	return totalBytes, nil
 }
 
+// formStatsQuery forms athena query based on query params
 func formStatsQuery(custID string, timestampEpochGt int64, timestampEpochLs int64) string {
 	qStr := "select sum(t1.bytes) from billingdatazenskar as t1"
 	args := make([]string, 0)
