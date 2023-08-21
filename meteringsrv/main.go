@@ -21,9 +21,9 @@ func main() {
 	// init dependencies
 	dep := &depend.Dependency{}
 	awscfg := &aws.Config{
-		Region: aws.String("ap-south-1"),
-		Credentials: credentials.NewStaticCredentials("AKIA2NOKCR77SR6AFNWL",
-			"/Zd/", ""),
+		Region: aws.String("<insert_correct_value>"),
+		Credentials: credentials.NewStaticCredentials("<insert_correct_value>",
+			"<insert_correct_value>", "<insert_correct_value>"),
 	}
 
 	dep.AWSAthena = athena.InitAthena(awscfg)
